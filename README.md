@@ -13,13 +13,18 @@ Includes DFT validation and topological analysis for selected candidates
 ## Repository Structure
 
 Struct2Flat/
-│
-├── data/                # Processed and labeled datasets
-├── model/               # Deep learning architecture
-├── scripts/             # Flatness score computation, kagome-like and atom projection screening
-├── results/             # Candidate summaries, band structures, and plots
-├── requirements.txt     # Environment of the deep learning model   
-└── README.md
+
+data/                # Processed and labeled datasets
+
+model/               # Deep learning architecture
+
+scripts/             # Flatness score computation, kagome-like and atom projection screening
+
+results/             # Candidate summaries, band structures, and plots
+
+requirements.txt     # Environment of the deep learning model   
+
+README.md
 
 ## Data
 
