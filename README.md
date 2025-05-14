@@ -13,44 +13,69 @@ Includes DFT validation and topological analysis for selected candidates
 ## Repository Structure
 
 Struct2Flat/
+
 │
+
 ├── data/                # Processed and labeled datasets
+
 ├── model/               # Deep learning architecture
+
 ├── scripts/             # Flatness score computation, kagome-like and atom projection screening
+
 ├── results/             # Candidate summaries, band structures, and plots
-├── requirements.txt     # Environment of the deep learning model    
+
+├── requirements.txt     # Environment of the deep learning model   
+
 └── README.md
 
 ## Data
 
 This repository includes only the processed datasets with algorithm-labeled flatness scores used for model training and inference.
+
 The original raw data can be accessed from the official databases:
 
 2DMatPedia: http://www.2dmatpedia.org
+
 C2DB: https://cmr.fysik.dtu.dk/c2db/c2db.html
 
 ## Getting Started
 
 1. Clone the repository
-git clone https://github.com/your-username/Struct2Flat.git
+
+2. git clone https://github.com/your-username/Struct2Flat.git
+
 ```cd Struct2Flat```
-2. Set up the environment
+
+3. Set up the environment
+   
 ```pip install -r requirements.txt```
-3. Train the model
+
+4. Train the model
+
 All parameters and file paths can be configured in configs.py.
+
 ```cd model```
+
 ```python train.py```
-4. Predict with the model
+
+5. Predict with the model
+
 ```python prediction.py```
+
 We provided a trained model in results folder.
-5. Run inference for c2db
+
+6. Run inference for c2db
+
 ```python predict_c2db.py```
 
 ## Results
 
 Over 10,000 2D materials screened
+
 748 materials with predicted flatness scores > 0.95
+
 Several top candidates validated with DFT and topological quantum chemistry
+
 Results and figures from the paper are available under /results/.
 
 ## Citation
