@@ -20,7 +20,7 @@ model/               # Deep learning architecture
 
 scripts/             # Flatness score computation, kagome-like and atom projection screening
 
-results/             # Candidate summaries, band structures, and plots
+results/             # Candidate summaries and plots
 
 requirements.txt     # Environment of the deep learning model   
 
