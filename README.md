@@ -70,7 +70,7 @@ We provided a trained model in results folder.
 
 Over 10,000 2D materials screened
 
-748 materials with predicted flatness scores > 0.95
+Selected candidates form a new flat-band database
 
 Several top candidates validated with DFT and topological quantum chemistry
 
