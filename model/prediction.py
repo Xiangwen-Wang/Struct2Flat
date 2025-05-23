@@ -15,13 +15,14 @@ else:
     device = torch.device('cpu')
 
 def collate_fn(batch):
-    graphs, texts, flatness_score = zip(*batch)
-    flatness_score = torch.tensor(flatness_score, dtype=torch.float32).unsqueeze(-1)
+    graphs, keys, texts, flatness_scores = zip(*batch)
+    flatness_scores = torch.tensor(flatness_scores, dtype=torch.float32).unsqueeze(-1)
     return (
         dgl.batch([g[0] for g in graphs]),
         dgl.batch([g[1] for g in graphs]),
-        texts,
-        flatness_score,
+        list(keys),  
+        list(texts),  
+        flatness_scores,
     )
 
 class DGLDataset(Dataset):
@@ -36,7 +37,8 @@ class DGLDataset(Dataset):
         structure_graph = value["structure_graph"]
         flatness_score = value["flatness_score"]
         text_string = value["text_string"]
-        return structure_graph, text_string, flatness_score
+        
+        return structure_graph, key, text_string, flatness_score
 
 def predict(model, data_loader, device):
     model.eval()
@@ -46,16 +48,17 @@ def predict(model, data_loader, device):
 
     with torch.no_grad():
         for batch in data_loader:
-            graph1, graph2, text_input, flatness_score = batch
+            graph1, graph2, keys, text_input, flatness_score = batch
             graph1 = graph1.to(device)
             graph2 = graph2.to(device)
             flatness_score = flatness_score.to(device)
 
+            
             predicted_score = model(graph1, graph2, text_input, device, mode="infer")
 
             all_predictions.extend(predicted_score.cpu().numpy().reshape(-1))
             all_true_values.extend(flatness_score.cpu().numpy().reshape(-1))
-            all_keys.extend(text_input)
+            all_keys.extend(keys)  
 
     return all_keys, all_predictions, all_true_values
 
@@ -79,7 +82,6 @@ def load_existing_scores(output_file):
     return scores_dict
 
 def main():
-
     cfg = get_cfg_defaults()
 
     best_model_path = cfg["DIR"]["SAVEMODEL"] + '/best_model.pth'
@@ -116,5 +118,4 @@ def main():
     print(f"Predictions saved to {prediction_output_file}")
 
 if __name__ == '__main__':
-
     main()
